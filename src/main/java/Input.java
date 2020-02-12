@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,16 +13,15 @@ public class Input {
 
     public List<Monster> getParticipants(int countOfMonsters) {
         System.out.println("경주할 몬스터 이름과 종류를 입력하세요. (쉼표(,)를 기준으로 구분)");
-        Monster[] monsters = new Monster[countOfMonsters];
-        for(int i = 0; i < monsters.length; i++) {
+        List<Monster> monsters = new ArrayList<>();
+        while (monsters.size() != countOfMonsters) {
             try {
-                monsters[i] = createMonster();
-            } catch(InvalidDelimiterException | UnknownMonsterTypeException e) {
+                monsters.add(createMonster());
+            } catch (InvalidDelimiterException | UnknownMonsterTypeException e) {
                 System.out.println(e.getMessage());
-                i--;
             }
         }
-        return Arrays.asList(monsters);
+        return monsters;
     }
 
     public int getRounds() {
@@ -31,7 +30,7 @@ public class Input {
     }
 
     public void closeScanner() {
-        if(scanner != null)
+        if (scanner != null)
             scanner.close();
     }
 
@@ -39,9 +38,9 @@ public class Input {
         int input;
         try {
             input = Integer.parseInt(scanner.nextLine());
-            if(input <= 0)
+            if (input <= 0)
                 throw new InvalidRangeException("유효 범위에서 벗어난 입력값입니다.");
-        } catch(NumberFormatException | InvalidRangeException e) {
+        } catch (NumberFormatException | InvalidRangeException e) {
             System.out.println(e.getMessage());
             input = getPositiveInt();
         }
@@ -49,21 +48,21 @@ public class Input {
     }
 
     private Monster createMonster() throws InvalidDelimiterException, UnknownMonsterTypeException {
-        final int INDEX_NAME = 0;
-        final int INDEX_TYPE = 1;
+        final int indexOfName = 0;
+        final int indexOfType = 1;
 
         String[] monsterInfo = getMonsterInfo();
-        if(monsterInfo.length <= INDEX_TYPE)
+        if (monsterInfo.length <= indexOfType)
             throw new InvalidDelimiterException("잘못된 구분자입니다.");
 
-        Monster monster = MonsterFactory.getMonsterInstance(monsterInfo[INDEX_NAME], monsterInfo[INDEX_TYPE]);
-        if(monster == null)
+        Monster monster = MonsterFactory.getMonsterInstance(monsterInfo[indexOfName], monsterInfo[indexOfType].trim());
+        if (monster == null)
             throw new UnknownMonsterTypeException("존재하지 않는 몬스터 타입입니다.");
         return monster;
     }
 
     private String[] getMonsterInfo() {
-        String input = scanner.nextLine().replaceAll(" ", "");
+        String input = scanner.nextLine().trim();
         return input.split(",");
     }
 
