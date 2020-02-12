@@ -1,15 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonsterRace {
+public class MonsterRace implements MenuItem {
 
-    private int rounds;
+    private MonsterDB monsterDB = MonsterDB.getInstance();
     private List<Monster> monsters = new ArrayList<>();
-    private Input input = new Input();
+    private int rounds;
 
-    public void ready() {
-        System.out.println("<신나는 몬스터 레이스>");
-        validateCondition();
+    @Override
+    public void execute() {
+
+    }
+
+    public void initialize() {
+//        this.rounds = Input.getRounds();
+//        int countOfMonsters = Input.getCountOfMonsters();
+//        monsters = Input.getParticipants(countOfMonsters);
     }
 
     public void start() {
@@ -23,13 +29,12 @@ public class MonsterRace {
 
     public void finish() {
         showWinners();
-        input.closeScanner();
+        Input.closeScanner();
     }
 
-    private void validateCondition() {
-        this.rounds = input.getRounds();
-        int countOfMonsters = input.getCountOfMonsters();
-        monsters = input.getParticipants(countOfMonsters);
+    @Override
+    public String toString() {
+        return "몬스터 경주 게임 시작";
     }
 
     private void updateRound() {
