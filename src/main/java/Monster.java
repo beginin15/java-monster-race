@@ -1,9 +1,11 @@
+import java.util.Objects;
+
 public abstract class Monster {
 
-    private static final int RANDOM_MAX = 10;
-    private String monsterName;
+    public static final int RANDOM_MAX = 10;
     protected Type type;
     protected int traces;
+    private String monsterName;
 
     public Monster(String monsterName, Type type) {
         this.monsterName = monsterName;
@@ -16,13 +18,39 @@ public abstract class Monster {
         System.out.println(this + " : " + getTraces2String());
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s [%s]", this.monsterName, this.type.getTypeName());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Monster monster = (Monster) o;
+        return type == monster.type &&
+                Objects.equals(monsterName, monster.monsterName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, monsterName);
+    }
+
     public int getTraces() {
         return traces;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s [%s]", this.monsterName, this.type.getTypeName());
+    public String getProfile() {
+        return monsterName + type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setMonsterName(String monsterName) {
+        this.monsterName = monsterName;
     }
 
     protected boolean isForward() {
