@@ -1,4 +1,4 @@
-public enum TYPE {
+public enum Type {
     NORMAL("노말", 1, 4),
     FLYING("비행", 3, 6),
     PSYCHIC("에스퍼", 0, 9);
@@ -7,7 +7,7 @@ public enum TYPE {
     private int speed;
     private int randomLimit;
 
-    TYPE(String typeName, int speed, int randomLimit) {
+    Type(String typeName, int speed, int randomLimit) {
         this.typeName = typeName;
         this.speed = speed;
         this.randomLimit = randomLimit;
