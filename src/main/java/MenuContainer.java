@@ -4,6 +4,7 @@ import java.util.List;
 public class MenuContainer implements MenuItem {
 
     protected boolean isExit = false;
+    protected static MenuContainer instance;
     private List<MenuItem> menuItems = new ArrayList<>();
 
     @Override

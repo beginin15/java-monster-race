@@ -1,9 +1,15 @@
 public class MainMenu extends MenuContainer {
 
-    private MonsterDB monsterDB = new MonsterDB();
+    private MonsterDB monsterDB = MonsterDB.getInstance();
 
-    public MainMenu() {
-        this.addSubMenu(new ProfileMenu(monsterDB));
-        this.addSubMenu(new MonsterRace(monsterDB));
+    private MainMenu() {
+        addSubMenu(ProfileMenu.getInstance());
+        addSubMenu(new MonsterRace());
+    }
+
+    public static MenuContainer getInstance() {
+        if(instance == null)
+            instance = new MainMenu();
+        return instance;
     }
 }

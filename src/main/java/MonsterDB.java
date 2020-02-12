@@ -3,7 +3,16 @@ import java.util.List;
 
 public class MonsterDB {
 
+    private static MonsterDB instance;
     private List<Monster> monsters = new ArrayList<>();
+
+    private MonsterDB() { }
+
+    public static MonsterDB getInstance() {
+        if(instance == null)
+            instance = new MonsterDB();
+        return instance;
+    }
 
     public void showMonsterList() {
         if (monsters.size() == 0) {

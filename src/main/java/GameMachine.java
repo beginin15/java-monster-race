@@ -1,7 +1,7 @@
 public class GameMachine {
 
     public static void main(String[] args) {
-        MainMenu mainMenu = new MainMenu();
+        MenuContainer mainMenu = MainMenu.getInstance();
         mainMenu.execute();
     }
 }

@@ -1,10 +1,15 @@
 public class ProfileMenu extends MenuContainer {
 
-    private MonsterDB monsterDB;
+    private MonsterDB monsterDB = MonsterDB.getInstance();
 
-    public ProfileMenu(MonsterDB monsterDB) {
-        this.monsterDB = monsterDB;
+    private ProfileMenu() {
         initializeMenus();
+    }
+
+    public static MenuContainer getInstance() {
+        if (instance == null)
+            instance = new ProfileMenu();
+        return instance;
     }
 
     private void initializeMenus() {
