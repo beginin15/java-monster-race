@@ -1,12 +1,12 @@
 public class Normal extends Monster {
 
-    public Normal(String monsterName, TYPE type) {
+    public Normal(String monsterName, Type type) {
         super(monsterName, type);
     }
 
     @Override
     public void update() {
-        if(isForward())
+        if (isForward())
             this.traces += type.getSpeed();
     }
 }

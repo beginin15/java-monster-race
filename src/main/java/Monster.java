@@ -2,10 +2,10 @@ public abstract class Monster {
 
     private static final int RANDOM_MAX = 10;
     private String monsterName;
-    protected TYPE type;
+    protected Type type;
     protected int traces;
 
-    public Monster(String monsterName, TYPE type) {
+    public Monster(String monsterName, Type type) {
         this.monsterName = monsterName;
         this.type = type;
     }
@@ -35,10 +35,10 @@ public abstract class Monster {
     }
 
     private String getTraces2String() {
-        StringBuilder buffer = new StringBuilder();
-        for(int i = 0; i < this.traces; i++) {
-            buffer.append("-");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.traces; i++) {
+            sb.append("-");
         }
-        return buffer.toString();
+        return sb.toString();
     }
 }

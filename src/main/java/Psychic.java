@@ -1,12 +1,12 @@
 public class Psychic extends Monster {
 
-    public Psychic(String monsterName, TYPE type) {
+    public Psychic(String monsterName, Type type) {
         super(monsterName, type);
     }
 
     @Override
     public void update() {
-        if(isForward())
+        if (isForward())
             this.traces += castingSpeedDice();
     }
 
