@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class MonsterRace {
 
@@ -15,7 +14,7 @@ public class MonsterRace {
 
     public void start() {
         System.out.println("<레이스 시작!>");
-        for(int i = 1; i <= this.rounds; i++) {
+        for (int i = 1; i <= this.rounds; i++) {
             System.out.println("<" + i + "회>");
             updateRound();
             System.out.println();
@@ -23,8 +22,7 @@ public class MonsterRace {
     }
 
     public void finish() {
-        Monster[] winners = getWinners();
-        showWinners(winners);
+        showWinners();
         input.closeScanner();
     }
 
@@ -35,30 +33,34 @@ public class MonsterRace {
     }
 
     private void updateRound() {
-        for(Monster monster : monsters) {
+        for (Monster monster : monsters) {
             monster.update();
             monster.render();
         }
     }
 
-    private Monster[] getWinners() {
-        rankParticipants();
-        return listUpCoWinners();
+    private void showWinners() {
+        List<Monster> rankingList = rankParticipants();
+        String namesOfWinners = listUpCoWinners(rankingList);
+        System.out.println("축하합니다! " + namesOfWinners + "(이)가 몬스터 레이스에서 우승했습니다!");
     }
 
-    private void rankParticipants() {
-        monsters.sort((preMonster, nextMonster) -> nextMonster.getTraces() - preMonster.getTraces());
+    private List<Monster> rankParticipants() {
+        List<Monster> rankingList = new ArrayList<>(monsters);
+        rankingList.sort((preMonster, nextMonster) -> nextMonster.getTraces() - preMonster.getTraces());
+        return rankingList;
     }
 
-    private Monster[] listUpCoWinners() {
+    private String listUpCoWinners(List<Monster> rankingList) {
         final int WINNER = 0;
-        int tracesOfWinner = monsters.get(WINNER).getTraces();
-        Stream<Monster> stream = monsters.stream().filter(monster -> tracesOfWinner == monster.getTraces());
-        return stream.toArray(Monster[]::new);
+        int recordOfWinner = rankingList.get(WINNER).getTraces();
+        return joinNamesOfCoWinners(recordOfWinner);
     }
 
-    private void showWinners(Monster[] winners) {
-        for(Monster winner : winners)
-            System.out.println("축하합니다! " + winner + "가 몬스터 레이스에서 우승했습니다!");
+    private String joinNamesOfCoWinners(int recordOfWinner) {
+        return monsters.stream()
+                .filter(monster -> recordOfWinner == monster.getTraces())
+                .map(Monster::toString)
+                .reduce("", (s1, s2)-> s1 + ", " + s2);
     }
 }
